@@ -6,31 +6,34 @@
         android:layout_height="wrap_content" xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
-        android:id="@+id/user_item_imageview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/user_item_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/img_placeholder"
         android:contentDescription="@null"
+        android:layout_margin="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/user_item_nickname"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/user_item_imageview"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toTopOf="@id/user_item_name"
+        app:layout_constraintStart_toEndOf="@+id/user_item_iv"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="\@usernickname"/>
 
     <TextView
         android:id="@+id/user_item_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/user_item_imageview"
+        android:layout_marginStart="16dp"
         app:layout_constraintTop_toBottomOf="@id/user_item_nickname"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_item_iv"
         tools:text="Full User Name"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

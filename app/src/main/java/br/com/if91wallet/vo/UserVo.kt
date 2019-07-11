@@ -1,8 +1,8 @@
 package br.com.if91wallet.vo
 
 class UserVo (
-    id: Long,
-    name: String,
-    img: String,
-    username: String
+    val id: Long,
+    val name: String,
+    val img: String,
+    val username: String
 )
