@@ -63,11 +63,8 @@ class HomeActivity : AppCompatActivity() {
             }
         })
 
-        search_textinput.onFocusChangeListener = (object : View.OnFocusChangeListener{
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
-                hideAppBar()
-            }
-        })
+        search_textinput.onFocusChangeListener =
+                (View.OnFocusChangeListener { _, _ -> hideAppBar() })
     }
 
     private fun hideAppBar() {
