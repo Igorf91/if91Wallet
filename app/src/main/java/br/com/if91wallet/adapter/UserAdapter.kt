@@ -9,9 +9,11 @@ import br.com.if91wallet.vo.UserVo
 class UserAdapter : RecyclerView.Adapter<UserViewHolder>() {
 
     private var usersList: ArrayList<UserVo> = arrayListOf()
+    private var usersListBkp: ArrayList<UserVo> = arrayListOf()
 
     fun loadItems(newList: List<UserVo>) {
         usersList.addAll(newList)
+        usersListBkp.addAll(newList)
         notifyDataSetChanged()
     }
 
@@ -26,5 +28,20 @@ class UserAdapter : RecyclerView.Adapter<UserViewHolder>() {
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val item = usersList[position]
         holder.bindView(item)
+    }
+
+    fun filter(search: String) {
+        usersList.clear()
+
+        if(search.isEmpty())
+            usersList.addAll(usersListBkp)
+        else{
+            usersListBkp.filterTo( usersList,
+                    { it.name.contains(search, true)
+                        || it.username.contains(search, true) }
+            )
+        }
+
+        notifyDataSetChanged()
     }
 }
