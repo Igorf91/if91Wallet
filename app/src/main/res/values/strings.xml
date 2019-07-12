@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">If91Wallet</string>
     <string name="contacts_title">Contatos</string>
+    <string name="search_description">A quem você deseja pagar?</string>
 </resources>
