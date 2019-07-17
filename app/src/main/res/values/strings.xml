@@ -7,4 +7,6 @@
         cartão de crédito pessoal.
     </string>
     <string name="btn_add_card_splash">Cadastrar cartão</string>
+    <string name="card_title">Cadastrar cartão</string>
+    <string name="save_card_btn">Salvar</string>
 </resources>
