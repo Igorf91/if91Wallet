@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import br.com.if91wallet.R
-import kotlinx.android.synthetic.main.add_card_splash_layout.btn_add_card_splash
-import kotlinx.android.synthetic.main.fragment_card.add_card_splash
 
 class CardFragment : Fragment() {
 
@@ -23,14 +22,7 @@ class CardFragment : Fragment() {
     }
 
     private fun setupView() {
-        setupCardSplashScreen()
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
-    private fun setupCardSplashScreen() {
-        add_card_splash.visibility = View.VISIBLE
-
-        btn_add_card_splash.setOnClickListener {
-            add_card_splash.visibility = View.GONE
-        }
-    }
 }

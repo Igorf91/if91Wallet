@@ -29,7 +29,7 @@ class UserViewHolder  (itemView: View) : RecyclerView.ViewHolder(itemView) {
         userName.text = item.name
 
         itemView.setOnClickListener {
-            val action = HomeFragmentDirections.actionAddCard()
+            val action = HomeFragmentDirections.actionHomeToAddCardSplash()
             itemView.findNavController().navigate(action)
         }
     }
