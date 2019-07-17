@@ -12,7 +12,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.if91wallet.R
 import br.com.if91wallet.adapter.UserAdapter
+import br.com.if91wallet.repository.UserRepository
 import br.com.if91wallet.viewmodel.HomeViewModel
+import br.com.if91wallet.viewmodel.HomeViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home.appBar
 import kotlinx.android.synthetic.main.fragment_home.search_textinput
 import kotlinx.android.synthetic.main.fragment_home.users_rv
@@ -24,7 +26,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         homeViewModel = ViewModelProviders
-            .of(this)
+            .of(this, HomeViewModelFactory(UserRepository()))
             .get(HomeViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_home, container, false)
