@@ -3,30 +3,37 @@ package br.com.if91wallet.view
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.if91wallet.R
 import br.com.if91wallet.adapter.UserAdapter
+import br.com.if91wallet.repository.UserRepository
 import br.com.if91wallet.viewmodel.HomeViewModel
-import kotlinx.android.synthetic.main.activity_home.appBar
-import kotlinx.android.synthetic.main.activity_home.search_textinput
-import kotlinx.android.synthetic.main.activity_home.users_rv
+import br.com.if91wallet.viewmodel.HomeViewModelFactory
+import kotlinx.android.synthetic.main.fragment_home.appBar
+import kotlinx.android.synthetic.main.fragment_home.search_textinput
+import kotlinx.android.synthetic.main.fragment_home.users_rv
 
-class HomeActivity : AppCompatActivity() {
+class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private val adapter = UserAdapter()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         homeViewModel = ViewModelProviders
-            .of(this)
+            .of(this, HomeViewModelFactory(UserRepository()))
             .get(HomeViewModel::class.java)
+
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setupView()
         setupCall()
@@ -39,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         users_rv.adapter = adapter
-        users_rv.layoutManager = LinearLayoutManager(this)
+        users_rv.layoutManager = LinearLayoutManager(requireContext())
         users_rv.isNestedScrollingEnabled = false
 
         homeViewModel.getUsers().observe(this, Observer {
