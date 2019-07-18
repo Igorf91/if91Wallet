@@ -9,4 +9,8 @@
     <string name="btn_add_card_splash">Cadastrar cartão</string>
     <string name="card_title">Cadastrar cartão</string>
     <string name="save_card_btn">Salvar</string>
+    <string name="card_number_description">Número do cartão</string>
+    <string name="name_input_description">Nome do titular</string>
+    <string name="expiration_description">Vencimento</string>
+    <string name="cvv_description">CVV</string>
 </resources>
