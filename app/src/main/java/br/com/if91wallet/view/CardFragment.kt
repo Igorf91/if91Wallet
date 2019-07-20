@@ -49,17 +49,17 @@ class CardFragment : Fragment() {
     private fun setupButton() {
         save_card_btn.setOnClickListener {
             if (hasEmptyField())
-                Toast.makeText(requireContext(),"Valores inválidos", Toast.LENGTH_SHORT).show()
+                showMsg("Valores inválidos")
             else {
                 val cardVo = CardVo(
-                    cardNumber = card_number_edit_text.text.toString().toInt(),
+                    cardNumber = card_number_edit_text.text.toString().toLong(),
                     name = name_edit_text.text.toString(),
                     expirationDate = expiration_edit_text.text.toString().toInt(),
                     cvv = cvv_edit_text.text.toString()
                 )
 
                 cardRepository.save(cardVo)
-                Toast.makeText( requireContext(), "Salvo com sucesso", Toast.LENGTH_SHORT).show()
+                showMsg("Salvo com sucesso")
             }
         }
     }
@@ -110,5 +110,9 @@ class CardFragment : Fragment() {
             errorMsg = "CVV inválido",
             minSize = 3
         )
+    }
+
+    private fun showMsg(msg: String){
+        Toast.makeText(requireContext(),msg, Toast.LENGTH_SHORT).show()
     }
 }
