@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_card_number"
+                android:id="@+id/card_number_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -48,17 +48,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/add_card_title">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/card_number_input_edit"
+                    android:id="@+id/card_number_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/card_number_description"
+                    android:maxLength="16"
                     android:inputType="number"
                     android:cursorVisible="true"
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_name"
+                android:id="@+id/name_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -66,10 +67,10 @@
                 android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_card_number">
+                app:layout_constraintTop_toBottomOf="@+id/card_number_input_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/name_input_edit"
+                    android:id="@+id/name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:cursorVisible="true"
@@ -88,37 +89,39 @@
                 android:baselineAligned="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_name">
+                app:layout_constraintTop_toBottomOf="@+id/name_input_layout">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_expiration"
+                    android:id="@+id/expiration_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/expiration_input_edit"
+                        android:id="@+id/expiration_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/expiration_description"
+                        android:maxLength="4"
                         android:inputType="date"
                         android:cursorVisible="true"
                         android:singleLine="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_cvv"
+                    android:id="@+id/cvv_input_layout"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/cvv_input_edit"
+                        android:id="@+id/cvv_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/cvv_description"
+                        android:maxLength="4"
                         android:inputType="number"
                         android:cursorVisible="true"
                         android:singleLine="true" />
