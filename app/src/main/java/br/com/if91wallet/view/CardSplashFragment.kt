@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import br.com.if91wallet.R
 import kotlinx.android.synthetic.main.fragment_card_splash.btn_add_card_splash
 
@@ -25,7 +26,8 @@ class CardSplashFragment : Fragment() {
 
     private fun setupView() {
         btn_add_card_splash.setOnClickListener {
-            val action = CardSplashFragmentDirections.actionSplashToAddCard()
+            val args: CardSplashFragmentArgs by navArgs()
+            val action = CardSplashFragmentDirections.actionSplashToAddCard(args.user)
             findNavController().navigate(action)
         }
     }

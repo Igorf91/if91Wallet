@@ -5,4 +5,5 @@
     <color name="colorAccent">#fff</color>
     <color name="colorBrand">#21c25e</color>
     <color name="colorDisabled">#8F929D</color>
+    <color name="colorText">#FFF</color>
 </resources>
