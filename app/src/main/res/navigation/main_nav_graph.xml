@@ -16,14 +16,27 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:destination="@id/cardSplashFragment"/>
+
+        <action
+            android:id="@+id/action_home_to_payment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/paymentFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/cardSplashFragment"
         android:name="br.com.if91wallet.view.CardSplashFragment"
         tools:layout="@layout/fragment_card_splash">
+        <argument
+            android:name="user"
+            app:argType="br.com.if91wallet.vo.UserVo"/>
         <action
             android:id="@+id/action_splash_to_add_card"
+            app:popUpTo="@+id/main_nav_graph"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -35,5 +48,38 @@
             android:id="@+id/cardFragment"
             android:name="br.com.if91wallet.view.CardFragment"
             tools:layout="@layout/fragment_card">
+        <argument
+            android:name="user"
+            app:argType="br.com.if91wallet.vo.UserVo"/>
+        <argument
+            android:name="card"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="br.com.if91wallet.vo.CardVo"/>
+        <action
+            android:id="@+id/action_card_to_payment"
+            app:popUpTo="@+id/main_nav_graph"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/paymentFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="br.com.if91wallet.view.PaymentFragment"
+        tools:layout="@layout/fragment_payment">
+        <argument
+            android:name="user"
+            app:argType="br.com.if91wallet.vo.UserVo"/>
+        <action
+            android:id="@+id/action_payment_to_edit_card"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/cardFragment"/>
     </fragment>
 </navigation>

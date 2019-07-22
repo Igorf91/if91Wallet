@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import br.com.if91wallet.R
 import br.com.if91wallet.repository.CardRepository
 import br.com.if91wallet.util.validate
@@ -40,10 +42,12 @@ class CardFragment : Fragment() {
     }
 
     private fun setupView() {
-        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-
         setupButton()
         setupValidateFields()
+        val cardArgs: CardFragmentArgs by navArgs()
+        cardArgs.card?.let {
+            loadLayout(it)
+        }
     }
 
     private fun setupButton() {
@@ -54,20 +58,34 @@ class CardFragment : Fragment() {
                 val cardVo = CardVo(
                     cardNumber = card_number_edit_text.text.toString().toLong(),
                     name = name_edit_text.text.toString(),
-                    expirationDate = expiration_edit_text.text.toString().toInt(),
-                    cvv = cvv_edit_text.text.toString()
+                    expirationDate = expiration_edit_text.text.toString(),
+                    cvv = cvv_edit_text.text.toString().toInt()
                 )
 
                 cardRepository.save(cardVo)
                 showMsg("Salvo com sucesso")
+                navigateToPayment()
             }
         }
     }
 
+    private fun navigateToPayment() {
+        val cardArgs: CardFragmentArgs by navArgs()
+        val action = CardFragmentDirections.actionCardToPayment(cardArgs.user)
+        findNavController().navigate(action)
+    }
+
+    private fun loadLayout(cardVo: CardVo) {
+        card_number_edit_text.setText(cardVo.cardNumber.toString())
+        name_edit_text.setText(cardVo.name)
+        expiration_edit_text.setText(cardVo.expirationDate)
+        cvv_edit_text.setText(cardVo.cvv.toString())
+    }
+
     private fun hasEmptyField() = card_number_edit_text.text.isNullOrEmpty() ||
-                                        name_edit_text.text.isNullOrEmpty() ||
-                                        expiration_edit_text.text.isNullOrEmpty() ||
-                                        cvv_edit_text.text.isNullOrEmpty()
+            name_edit_text.text.isNullOrEmpty() ||
+            expiration_edit_text.text.isNullOrEmpty() ||
+            cvv_edit_text.text.isNullOrEmpty()
 
     private fun setupValidateFields() {
         setupValidateCardNumber()
@@ -112,7 +130,7 @@ class CardFragment : Fragment() {
         )
     }
 
-    private fun showMsg(msg: String){
-        Toast.makeText(requireContext(),msg, Toast.LENGTH_SHORT).show()
+    private fun showMsg(msg: String) {
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
 }

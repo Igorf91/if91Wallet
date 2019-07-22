@@ -1,8 +1,6 @@
 package br.com.if91wallet.view
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,21 +12,21 @@ import br.com.if91wallet.R
 import br.com.if91wallet.adapter.UserAdapter
 import br.com.if91wallet.repository.UserRepository
 import br.com.if91wallet.util.SimpleTextWatcher
-import br.com.if91wallet.viewmodel.HomeViewModel
-import br.com.if91wallet.viewmodel.HomeViewModelFactory
+import br.com.if91wallet.viewmodel.UserViewModel
+import br.com.if91wallet.viewmodel.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home.appBar
 import kotlinx.android.synthetic.main.fragment_home.search_textinput
 import kotlinx.android.synthetic.main.fragment_home.users_rv
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var userViewModel: UserViewModel
     private val adapter = UserAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        homeViewModel = ViewModelProviders
-            .of(this, HomeViewModelFactory(UserRepository()))
-            .get(HomeViewModel::class.java)
+        userViewModel = ViewModelProviders
+            .of(this, UserViewModelFactory(UserRepository()))
+            .get(UserViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
@@ -50,7 +48,7 @@ class HomeFragment : Fragment() {
         users_rv.layoutManager = LinearLayoutManager(requireContext())
         users_rv.isNestedScrollingEnabled = false
 
-        homeViewModel.getUsers().observe(this, Observer {
+        userViewModel.getUsers().observe(this, Observer {
             adapter.loadItems(it ?: emptyList())
         })
     }
@@ -72,6 +70,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupCall() {
-        homeViewModel.fetchUsersData()
+        userViewModel.fetchUsersData()
     }
 }

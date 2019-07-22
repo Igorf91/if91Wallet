@@ -13,4 +13,8 @@
     <string name="name_input_description">Nome do titular</string>
     <string name="expiration_description">Vencimento</string>
     <string name="cvv_description">CVV</string>
+    <string name="payment_currency">R$</string>
+    <string name="payment_start_value">0,00</string>
+    <string name="payment_button">Pagar</string>
+    <string name="card_description">Card %s • EDITAR</string>
 </resources>
