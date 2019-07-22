@@ -7,7 +7,7 @@ import br.com.if91wallet.service.TransactionService
 import br.com.if91wallet.util.RetrofitFactory
 import br.com.if91wallet.util.callback
 import br.com.if91wallet.vo.CardVo
-import br.com.if91wallet.vo.Transaction
+import br.com.if91wallet.vo.TransactionVo
 import br.com.if91wallet.vo.TransactionRequest
 import br.com.if91wallet.vo.UserVo
 
@@ -16,14 +16,14 @@ class TransactionRepository {
     private val transactionService: TransactionService by lazy {
         RetrofitFactory().getRetrofit().create(TransactionService::class.java)
     }
-    private var _transaction = MutableLiveData<Transaction>()
-    val transaction: LiveData<Transaction> = _transaction
+    private var _transaction = MutableLiveData<TransactionVo>()
+    val transaction: LiveData<TransactionVo> = _transaction
 
     companion object {
         private const val TAG = "TransactionRepository"
     }
 
-    fun pay(value: Double, card: CardVo, user: UserVo) {
+    fun pay(value: Float, card: CardVo, user: UserVo) {
         val request = TransactionRequest(value, card, user)
 
         transactionService.pay(request).enqueue(callback { response, throwable ->

@@ -64,7 +64,7 @@ class PaymentFragment : Fragment() {
             .into(payment_img)
 
         payment_nickname.text = user.username
-        val last4Digits = SpannableString(getString(R.string.card_description, getLast4()))
+        val last4Digits = SpannableString(getString(R.string.card_description, card.getLast4()))
         last4Digits.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorBrand)),
             last4Digits.lastIndexOf(" "),
@@ -110,17 +110,20 @@ class PaymentFragment : Fragment() {
 
     private fun setupPaymentButtonListener() {
         transactionViewModel.getTransaction().observe(this, Observer {
-            Toast.makeText(requireContext(), "result\n $it", Toast.LENGTH_SHORT ).show()
+            if(it.success) {
+                val paySlipFragment = PaySlipFragment(card.getLast4(), it)
+                paySlipFragment.show(fragmentManager, PaySlipFragment.TAG)
+            } else
+                Toast.makeText(requireContext(), "Transação Negada, \nTente novamente", Toast.LENGTH_SHORT).show()
         })
 
         payment_button.setOnClickListener {
+            val value = payment_value_edit_text.text.toString().replace(",", ".").toFloat()
             transactionViewModel.pay(
-                payment_value_edit_text.text.toString().toDouble(),
+                value,
                 card,
                 user
             )
         }
     }
-
-    private fun getLast4() = card.cardNumber.toString().takeLast(4)
 }

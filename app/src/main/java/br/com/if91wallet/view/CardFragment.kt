@@ -85,7 +85,11 @@ class CardFragment : Fragment() {
     private fun hasEmptyField() = card_number_edit_text.text.isNullOrEmpty() ||
             name_edit_text.text.isNullOrEmpty() ||
             expiration_edit_text.text.isNullOrEmpty() ||
-            cvv_edit_text.text.isNullOrEmpty()
+            cvv_edit_text.text.isNullOrEmpty() ||
+            card_number_input_layout.isErrorEnabled ||
+            name_input_layout.isErrorEnabled ||
+            expiration_input_layout.isErrorEnabled ||
+            cvv_input_layout.isErrorEnabled
 
     private fun setupValidateFields() {
         setupValidateCardNumber()

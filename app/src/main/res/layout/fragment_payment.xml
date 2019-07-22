@@ -55,7 +55,7 @@
             android:inputType="numberDecimal"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="@string/payment_start_value"
+            android:hint="@string/payment_start_value"
             android:textSize="64sp" />
     </LinearLayout>
 
