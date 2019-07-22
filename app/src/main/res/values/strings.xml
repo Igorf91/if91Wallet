@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">If91Wallet</string>
+    <string name="contacts_title">Contatos</string>
+    <string name="search_description">A quem você deseja pagar?</string>
+    <string name="add_card_splash_title">Cadastre um cartão de crédito</string>
+    <string name="add_card_splash_description">Para fazer pagamentos para outras pessoas você precisa cadastrar um
+        cartão de crédito pessoal.
+    </string>
+    <string name="btn_add_card_splash">Cadastrar cartão</string>
+    <string name="card_title">Cadastrar cartão</string>
+    <string name="save_card_btn">Salvar</string>
+    <string name="card_number_description">Número do cartão</string>
+    <string name="name_input_description">Nome do titular</string>
+    <string name="expiration_description">Vencimento</string>
+    <string name="cvv_description">CVV</string>
+    <string name="payment_currency">R$</string>
+    <string name="payment_start_value">0.00</string>
+    <string name="payment_button">Pagar</string>
+    <string name="card_description">Card %s • EDITAR</string>
+    <string name="total_description">Total pago</string>
+    <string name="pay_slip_transaction">Transação: %s</string>
+    <string name="default_currency">R$ %s</string>
+    <string name="pay_slip_card">Cartão %s %s</string>
+</resources>

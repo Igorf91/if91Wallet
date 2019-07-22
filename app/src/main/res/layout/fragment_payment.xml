@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.PaymentFragment">
+
+    <ImageView
+        android:id="@+id/payment_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
+        android:contentDescription="@null"
+        android:src="@drawable/img_placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/payment_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/payment_img"
+        tools:text="\@nick_name" />
+
+    <LinearLayout
+        android:id="@+id/payment_value_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/payment_nickname">
+
+        <TextView
+            android:id="@+id/payment_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="@string/payment_currency"
+            android:textSize="25sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/payment_value_edit_text"
+            android:layout_width="wrap_content"
+            android:background="@null"
+            android:inputType="numberDecimal"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:hint="@string/payment_start_value"
+            android:textSize="64sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/payment_card_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/payment_value_layout"
+        tools:text="Mastercard 1234 * EDITAR" />
+
+    <Button
+        android:id="@+id/payment_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:enabled="false"
+        android:text="@string/payment_button"
+        style="@style/Button.default"
+        app:layout_constraintTop_toBottomOf="@id/payment_card_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
