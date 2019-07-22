@@ -9,4 +9,7 @@ data class CardVo(
     val name : String,
     val expirationDate : String,
     val cvv : Int
-) : Parcelable
+) : Parcelable {
+
+    fun getLast4() = cardNumber.toString().takeLast(4)
+}
