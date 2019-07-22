@@ -42,8 +42,6 @@ class CardFragment : Fragment() {
     }
 
     private fun setupView() {
-        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-
         setupButton()
         setupValidateFields()
         val cardArgs: CardFragmentArgs by navArgs()
