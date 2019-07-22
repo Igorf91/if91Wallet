@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.if91wallet.R
 import br.com.if91wallet.adapter.UserAdapter
 import br.com.if91wallet.repository.UserRepository
+import br.com.if91wallet.util.SimpleTextWatcher
 import br.com.if91wallet.viewmodel.HomeViewModel
 import br.com.if91wallet.viewmodel.HomeViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home.appBar
@@ -55,17 +56,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupSearchTextView() {
-        search_textinput.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                //empty
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                //empty
-            }
-
-            override fun onTextChanged(newText: CharSequence?, start: Int, before: Int, count: Int) {
-                adapter.filter(newText.toString())
+        search_textinput.addTextChangedListener(object : SimpleTextWatcher() {
+            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+                adapter.filter(text.toString())
                 hideAppBar()
             }
         })

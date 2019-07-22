@@ -12,8 +12,8 @@ class UserAdapter : RecyclerView.Adapter<UserViewHolder>() {
     private var usersListBkp: ArrayList<UserVo> = arrayListOf()
 
     fun loadItems(newList: List<UserVo>) {
-        usersList.addAll(newList)
-        usersListBkp.addAll(newList)
+        usersList = ArrayList(newList)
+        usersListBkp = ArrayList(newList)
         notifyDataSetChanged()
     }
 

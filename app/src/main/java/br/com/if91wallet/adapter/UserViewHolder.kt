@@ -1,8 +1,10 @@
 package br.com.if91wallet.adapter
 
 import android.view.View
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import br.com.if91wallet.util.getLoaderPlaceholder
+import br.com.if91wallet.view.HomeFragmentDirections
 import br.com.if91wallet.vo.UserVo
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -27,7 +29,8 @@ class UserViewHolder  (itemView: View) : RecyclerView.ViewHolder(itemView) {
         userName.text = item.name
 
         itemView.setOnClickListener {
-            //TODO() Open payment
+            val action = HomeFragmentDirections.actionHomeToAddCardSplash()
+            itemView.findNavController().navigate(action)
         }
     }
 }
