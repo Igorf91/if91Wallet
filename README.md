@@ -3,10 +3,10 @@
 https://picpay.com/jobs/desafio-mobile
 Android - https://goo.gl/M5RFzY 
 
-On progress:
+On Progress:
 
-*Test;
+Test
 
-*Field Mask;
+Field Mask
 
-*Lint;
+Lint
