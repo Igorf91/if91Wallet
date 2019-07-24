@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.list_user_item_layout.view.user_item_iv
 import kotlinx.android.synthetic.main.list_user_item_layout.view.user_item_name
 import kotlinx.android.synthetic.main.list_user_item_layout.view.user_item_nickname
 
-class UserViewHolder  (itemView: View) : RecyclerView.ViewHolder(itemView) {
+class UserViewHolder  (itemView: View, private val listener: (UserVo) -> Unit) : RecyclerView.ViewHolder(itemView) {
     private val imageView = itemView.user_item_iv
     private val userNickname = itemView.user_item_nickname
     private val userName = itemView.user_item_name
@@ -30,14 +30,7 @@ class UserViewHolder  (itemView: View) : RecyclerView.ViewHolder(itemView) {
         userName.text = item.name
 
         itemView.setOnClickListener {
-
-            val action =
-                if(CardRepository().hasCard())
-                    HomeFragmentDirections.actionHomeToPayment(item)
-                else
-                    HomeFragmentDirections.actionHomeToAddCardSplash(item)
-
-            itemView.findNavController().navigate(action)
+            listener.invoke(item)
         }
     }
 }

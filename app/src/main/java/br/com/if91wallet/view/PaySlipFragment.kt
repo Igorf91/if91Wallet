@@ -69,7 +69,6 @@ class PaySlipFragment : BottomSheetDialogFragment() {
         pay_slip_transaction_id.text =
             getString(R.string.pay_slip_transaction, transaction.id.toString())
 
-
         val formatter = SimpleDateFormat("dd/MM/yyyy 'às' HH:mm")
         pay_slip_datetime.text = formatter.format( Date(transaction.timestamp))
 
