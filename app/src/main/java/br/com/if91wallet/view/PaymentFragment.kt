@@ -15,13 +15,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.if91wallet.R
-import br.com.if91wallet.repository.CardRepository
 import br.com.if91wallet.repository.TransactionRepository
 import br.com.if91wallet.util.SimpleTextWatcher
 import br.com.if91wallet.util.getLoaderPlaceholder
 import br.com.if91wallet.viewmodel.TransactionViewModel
 import br.com.if91wallet.viewmodel.TransactionViewModelFactory
-import br.com.if91wallet.vo.UserVo
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.fragment_payment.payment_button
@@ -33,24 +31,22 @@ import kotlinx.android.synthetic.main.fragment_payment.payment_value_edit_text
 
 class PaymentFragment : Fragment() {
 
-    private val card = CardRepository().getCard()
     private lateinit var transactionViewModel: TransactionViewModel
-    private lateinit var user: UserVo
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val paymentArgs: PaymentFragmentArgs by navArgs()
+
         transactionViewModel = ViewModelProviders
-            .of(this, TransactionViewModelFactory(TransactionRepository()))
+            .of(this, TransactionViewModelFactory(TransactionRepository(), paymentArgs.user))
             .get(TransactionViewModel::class.java)
         return inflater.inflate(R.layout.fragment_payment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val paymentArgs: PaymentFragmentArgs by navArgs()
-        user = paymentArgs.user
         setupLayout()
         setupListeners()
     }
@@ -58,13 +54,13 @@ class PaymentFragment : Fragment() {
     private fun setupLayout() {
         Glide
             .with(this)
-            .load(user.img)
+            .load(transactionViewModel.user.img)
             .placeholder(getLoaderPlaceholder(requireContext()))
             .apply(RequestOptions.circleCropTransform())
             .into(payment_img)
 
-        payment_nickname.text = user.username
-        val last4Digits = SpannableString(getString(R.string.card_description, card.getLast4()))
+        payment_nickname.text = transactionViewModel.user.username
+        val last4Digits = SpannableString(getString(R.string.card_description, transactionViewModel.getCardCvv()))
         last4Digits.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorBrand)),
             last4Digits.lastIndexOf(" "),
@@ -103,7 +99,7 @@ class PaymentFragment : Fragment() {
 
     private fun setupEditCardListener() {
         payment_card_description.setOnClickListener {
-            val action = PaymentFragmentDirections.actionPaymentToEditCard(user, card)
+            val action = PaymentFragmentDirections.actionPaymentToEditCard(transactionViewModel.user, transactionViewModel.card)
             findNavController().navigate(action)
         }
     }
@@ -111,7 +107,7 @@ class PaymentFragment : Fragment() {
     private fun setupPaymentButtonListener() {
         transactionViewModel.getTransaction().observe(this, Observer {
             if(it.success) {
-                val paySlipFragment = PaySlipFragment(card.getLast4(), it)
+                val paySlipFragment = PaySlipFragment(transactionViewModel.getCardCvv(), it)
                 paySlipFragment.show(fragmentManager, PaySlipFragment.TAG)
             } else
                 Toast.makeText(requireContext(), "Transação Negada, \nTente novamente", Toast.LENGTH_SHORT).show()
@@ -119,11 +115,8 @@ class PaymentFragment : Fragment() {
 
         payment_button.setOnClickListener {
             val value = payment_value_edit_text.text.toString().replace(",", ".").toFloat()
-            transactionViewModel.pay(
-                value,
-                card,
-                user
-            )
+
+            transactionViewModel.pay(value)
         }
     }
 }
