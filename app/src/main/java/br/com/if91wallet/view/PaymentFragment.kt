@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.if91wallet.R
@@ -39,9 +39,8 @@ class PaymentFragment : Fragment() {
     ): View? {
         val paymentArgs: PaymentFragmentArgs by navArgs()
 
-        transactionViewModel = ViewModelProviders
-            .of(this, TransactionViewModelFactory(paymentArgs.user))
-            .get(TransactionViewModel::class.java)
+        transactionViewModel = ViewModelProvider(this, TransactionViewModelFactory(paymentArgs.user))
+                .get(TransactionViewModel::class.java)
         return inflater.inflate(R.layout.fragment_payment, container, false)
     }
 
@@ -59,7 +58,8 @@ class PaymentFragment : Fragment() {
             .into(payment_img)
 
         payment_nickname.text = transactionViewModel.user.username
-        val last4Digits = SpannableString(getString(R.string.card_description, transactionViewModel.getCardCvv()))
+        val last4Digits =
+            SpannableString(getString(R.string.card_description, transactionViewModel.getCardCvv()))
         last4Digits.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorBrand)),
             last4Digits.lastIndexOf(" "),
@@ -98,18 +98,25 @@ class PaymentFragment : Fragment() {
 
     private fun setupEditCardListener() {
         payment_card_description.setOnClickListener {
-            val action = PaymentFragmentDirections.actionPaymentToEditCard(transactionViewModel.user, transactionViewModel.card)
+            val action = PaymentFragmentDirections.actionPaymentToEditCard(
+                transactionViewModel.user,
+                transactionViewModel.card
+            )
             findNavController().navigate(action)
         }
     }
 
     private fun setupPaymentButtonListener() {
         transactionViewModel.getTransaction().observe(this, Observer {
-            if(it.success) {
+            if (it.success) {
                 val paySlipFragment = PaySlipFragment(transactionViewModel.getCardCvv(), it)
-                paySlipFragment.show(fragmentManager, PaySlipFragment.TAG)
+                paySlipFragment.show(parentFragmentManager, PaySlipFragment.TAG)
             } else
-                Toast.makeText(requireContext(), "Transação Negada, \nTente novamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Transação Negada, \nTente novamente",
+                    Toast.LENGTH_SHORT
+                ).show()
         })
 
         payment_button.setOnClickListener {

@@ -84,7 +84,7 @@ class PaySlipFragment : BottomSheetDialogFragment() {
     private fun getCard() = arguments!!.getString(CARD)
     private fun getTransaction(): TransactionVo = arguments!!.getParcelable(TRANSACTION)!!
 
-    override fun onCancel(dialog: DialogInterface?) {
+    override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
         findNavController().navigateUp()
     }
