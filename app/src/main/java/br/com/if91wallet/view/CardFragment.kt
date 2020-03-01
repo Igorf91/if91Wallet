@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.if91wallet.R
-import br.com.if91wallet.repository.CardRepository
 import br.com.if91wallet.util.validate
+import br.com.if91wallet.viewmodel.CardRepositoryFactory
+import br.com.if91wallet.viewmodel.CardViewModel
 import br.com.if91wallet.vo.CardVo
 import kotlinx.android.synthetic.main.fragment_card.card_number_edit_text
 import kotlinx.android.synthetic.main.fragment_card.card_number_input_layout
@@ -25,14 +26,15 @@ import kotlinx.android.synthetic.main.fragment_card.save_card_btn
 
 class CardFragment : Fragment() {
 
-    private lateinit var cardRepository: CardRepository
+    private lateinit var cardViewModel: CardViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        cardRepository = CardRepository()
+        cardViewModel = ViewModelProvider(this, CardRepositoryFactory())
+            .get(CardViewModel::class.java)
         return inflater.inflate(R.layout.fragment_card, container, false)
     }
 
@@ -55,18 +57,22 @@ class CardFragment : Fragment() {
             if (hasEmptyField())
                 showMsg("Valores inválidos")
             else {
-                val cardVo = CardVo(
-                    cardNumber = card_number_edit_text.text.toString().toLong(),
-                    name = name_edit_text.text.toString(),
-                    expirationDate = expiration_edit_text.text.toString(),
-                    cvv = cvv_edit_text.text.toString().toInt()
-                )
-
-                cardRepository.save(cardVo)
-                showMsg("Salvo com sucesso")
-                navigateToPayment()
+                saveCard()
             }
         }
+    }
+
+    private fun saveCard() {
+        val cardVo = CardVo(
+            cardNumber = card_number_edit_text.text.toString().toLong(),
+            name = name_edit_text.text.toString(),
+            expirationDate = expiration_edit_text.text.toString(),
+            cvv = cvv_edit_text.text.toString().toInt()
+        )
+
+        cardViewModel.save(cardVo)
+        showMsg("Salvo com sucesso")
+        navigateToPayment()
     }
 
     private fun navigateToPayment() {

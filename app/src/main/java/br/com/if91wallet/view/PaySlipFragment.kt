@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_pay_slip.pay_slip_nickname
 import kotlinx.android.synthetic.main.fragment_pay_slip.pay_slip_total_value
 import kotlinx.android.synthetic.main.fragment_pay_slip.pay_slip_transaction_id
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 class PaySlipFragment : BottomSheetDialogFragment() {
 
@@ -69,7 +69,6 @@ class PaySlipFragment : BottomSheetDialogFragment() {
         pay_slip_transaction_id.text =
             getString(R.string.pay_slip_transaction, transaction.id.toString())
 
-
         val formatter = SimpleDateFormat("dd/MM/yyyy 'às' HH:mm")
         pay_slip_datetime.text = formatter.format( Date(transaction.timestamp))
 
@@ -83,9 +82,9 @@ class PaySlipFragment : BottomSheetDialogFragment() {
     }
 
     private fun getCard() = arguments!!.getString(CARD)
-    private fun getTransaction(): TransactionVo = arguments!!.getParcelable(TRANSACTION)
+    private fun getTransaction(): TransactionVo = arguments!!.getParcelable(TRANSACTION)!!
 
-    override fun onCancel(dialog: DialogInterface?) {
+    override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
         findNavController().navigateUp()
     }
