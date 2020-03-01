@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.if91wallet.R
 import br.com.if91wallet.vo.UserVo
 
-class UserAdapter : RecyclerView.Adapter<UserViewHolder>() {
+class UserAdapter(private val listener: (UserVo) -> Unit) : RecyclerView.Adapter<UserViewHolder>() {
 
     private var usersList: ArrayList<UserVo> = arrayListOf()
     private var usersListBkp: ArrayList<UserVo> = arrayListOf()
@@ -20,7 +20,7 @@ class UserAdapter : RecyclerView.Adapter<UserViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_user_item_layout, parent, false)
-        return UserViewHolder(view)
+        return UserViewHolder(view, listener)
     }
 
     override fun getItemCount() = usersList.size

@@ -4,15 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.if91wallet.service.UserService
-import br.com.if91wallet.util.RetrofitFactory
 import br.com.if91wallet.util.callback
 import br.com.if91wallet.vo.UserVo
 
-class UserRepository {
+class UserRepository (private val userService: UserService) {
 
-    private val userService: UserService by lazy {
-        RetrofitFactory().getRetrofit().create(UserService::class.java)
-    }
     private var _usersList = MutableLiveData<List<UserVo>>()
     val usersList: LiveData<List<UserVo>> = _usersList
 

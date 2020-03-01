@@ -4,18 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.if91wallet.service.TransactionService
-import br.com.if91wallet.util.RetrofitFactory
 import br.com.if91wallet.util.callback
 import br.com.if91wallet.vo.CardVo
-import br.com.if91wallet.vo.TransactionVo
 import br.com.if91wallet.vo.TransactionRequest
+import br.com.if91wallet.vo.TransactionVo
 import br.com.if91wallet.vo.UserVo
 
-class TransactionRepository {
+class TransactionRepository(private val transactionService: TransactionService) {
 
-    private val transactionService: TransactionService by lazy {
-        RetrofitFactory().getRetrofit().create(TransactionService::class.java)
-    }
     private var _transaction = MutableLiveData<TransactionVo>()
     val transaction: LiveData<TransactionVo> = _transaction
 
