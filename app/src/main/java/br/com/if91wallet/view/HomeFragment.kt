@@ -7,13 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.if91wallet.R
 import br.com.if91wallet.adapter.UserAdapter
-import br.com.if91wallet.repository.UserRepository
+import br.com.if91wallet.repository.CardRepository
 import br.com.if91wallet.util.SimpleTextWatcher
 import br.com.if91wallet.viewmodel.UserViewModel
 import br.com.if91wallet.viewmodel.UserViewModelFactory
+import br.com.if91wallet.vo.UserVo
 import kotlinx.android.synthetic.main.fragment_home.appBar
 import kotlinx.android.synthetic.main.fragment_home.search_textinput
 import kotlinx.android.synthetic.main.fragment_home.users_rv
@@ -21,11 +23,11 @@ import kotlinx.android.synthetic.main.fragment_home.users_rv
 class HomeFragment : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
-    private val adapter = UserAdapter()
+    private lateinit var adapter: UserAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         userViewModel = ViewModelProviders
-            .of(this, UserViewModelFactory(UserRepository()))
+            .of(this, UserViewModelFactory())
             .get(UserViewModel::class.java)
 
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -39,6 +41,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupView() {
+        adapter = UserAdapter {
+            callAction(it)
+        }
         setupRecyclerView()
         setupSearchTextView()
     }
@@ -71,5 +76,15 @@ class HomeFragment : Fragment() {
 
     private fun setupCall() {
         userViewModel.fetchUsersData()
+    }
+
+    private fun callAction(userVo: UserVo) {
+        val action =
+            if(CardRepository().hasCard())
+                HomeFragmentDirections.actionHomeToPayment(userVo)
+            else
+                HomeFragmentDirections.actionHomeToAddCardSplash(userVo)
+
+        findNavController().navigate(action)
     }
 }
