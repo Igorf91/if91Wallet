@@ -5,10 +5,10 @@ import br.com.if91wallet.repository.CardRepository
 import br.com.if91wallet.repository.TransactionRepository
 import br.com.if91wallet.vo.UserVo
 
-class TransactionViewModel (
+class TransactionViewModel(
     private val transactionRepository: TransactionRepository,
-    val user: UserVo,
-    cardRepository: CardRepository = CardRepository()
+    cardRepository: CardRepository,
+    val user: UserVo
 ) : ViewModel() {
 
     val card = cardRepository.getCard()

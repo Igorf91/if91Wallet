@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.if91wallet.R
-import br.com.if91wallet.repository.TransactionRepository
 import br.com.if91wallet.util.SimpleTextWatcher
 import br.com.if91wallet.util.getLoaderPlaceholder
 import br.com.if91wallet.viewmodel.TransactionViewModel
@@ -41,7 +40,7 @@ class PaymentFragment : Fragment() {
         val paymentArgs: PaymentFragmentArgs by navArgs()
 
         transactionViewModel = ViewModelProviders
-            .of(this, TransactionViewModelFactory(TransactionRepository(), paymentArgs.user))
+            .of(this, TransactionViewModelFactory(paymentArgs.user))
             .get(TransactionViewModel::class.java)
         return inflater.inflate(R.layout.fragment_payment, container, false)
     }

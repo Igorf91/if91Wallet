@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_pay_slip.pay_slip_nickname
 import kotlinx.android.synthetic.main.fragment_pay_slip.pay_slip_total_value
 import kotlinx.android.synthetic.main.fragment_pay_slip.pay_slip_transaction_id
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 class PaySlipFragment : BottomSheetDialogFragment() {
 
